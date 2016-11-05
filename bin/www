@@ -34,16 +34,6 @@ server.listen(port);
 server.on('error', onError);
 server.on('listening', onListening);
 
-/** 
- * Socket IO connection
-**/
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});
-
 /**
  * Normalize a port into a number, string, or false.
  */
@@ -103,3 +93,13 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
+
+/** 
+ * Socket IO connection
+**/
+io.on('connection', function (socket) {
+  socket.emit('news', { hello: 'world' });
+  socket.on('my other event', function (data) {
+    console.log(data);
+  });
+});
