@@ -22,9 +22,9 @@ app.set('port', port);
 var server = http.createServer(app);
 
 /**
- * Create IO Socket
+ * Attach socket.io, so that we can call app.io in app.js
  */
-var io = require('socket.io')(server);
+app.io.attach(server); 
 
 /**
  * Listen on provided port, on all network interfaces.
@@ -81,7 +81,6 @@ function onError(error) {
       throw error;
   }
 }
-
 /**
  * Event listener for HTTP server "listening" event.
  */
@@ -93,13 +92,3 @@ function onListening() {
     : 'port ' + addr.port;
   debug('Listening on ' + bind);
 }
-
-/** 
- * Socket IO connection
-**/
-io.on('connection', function (socket) {
-  socket.emit('news', { hello: 'world' });
-  socket.on('my other event', function (data) {
-    console.log(data);
-  });
-});

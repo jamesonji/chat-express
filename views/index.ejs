@@ -7,9 +7,19 @@
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect();
+      
+      // Function call on send button click
+      function sendFunction() {
+        socket.emit('new message', $('#new-message').val());
+        $('#new-message').val('');
+      }
+      socket.on('chat message', function(msg){
+        $('#messages-area').append($('<li>').text(msg));
+      });
+      
+      // Testing on socket emit
       socket.on('news', function (data) {
         console.log(data);
-        socket.emit('my other event', { my: 'data' });
         $('#socket').html(data["hello"]);
       });
     </script>
@@ -18,5 +28,9 @@
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <h3 id="socket"></h3>
+    <ul id="messages-area"></ul>
+    <form id="form" onsubmit="return false;">
+      <input id="new-message" type="text" /><button onclick="sendFunction()">Send</button>
+    </form>
   </body>
 </html>
