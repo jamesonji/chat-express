@@ -4,6 +4,8 @@
     <title><%= title %></title>
     <link rel='stylesheet' href='/stylesheets/style.css' />
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
+    <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
+
     <script src="/socket.io/socket.io.js"></script>
     <script>
       var socket = io.connect();
@@ -40,5 +42,19 @@
     <form id="form" onsubmit="return false;">
       <input id="new-message" type="text" /><button onclick="sendFunction()">Send</button>
     </form>
+    <hr>
+    <h1>Editor</h1>
+    <div id="editor">
+      function foo(items) {
+        var x = "All this is syntax highlighted";
+        return x;
+      }
+    </div>
+    
+    <script>
+        var editor = ace.edit("editor");
+        editor.setTheme("ace/theme/monokai");
+        editor.getSession().setMode("ace/mode/javascript");
+    </script>
   </body>
 </html>
