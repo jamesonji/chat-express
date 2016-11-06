@@ -7,8 +7,12 @@ var bodyParser = require('body-parser');
 
 var index = require('./routes/index');
 var users = require('./routes/users');
+var markdown = require('./routes/markdown');
 
 var app = express();
+
+// Include Ejs helpers
+var helpers = require('express-helpers')(app);
 
 /* Set up Socket IO*/
 app.io = require('socket.io')();
@@ -28,6 +32,8 @@ app.use('/ace-builds', express.static(__dirname + '/node_modules/ace-builds'));
 
 app.use('/', index);
 app.use('/users', users);
+app.use('/markdown', markdown);
+
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {
   var err = new Error('Not Found');
