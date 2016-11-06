@@ -50,17 +50,22 @@ app.use(function(err, req, res, next) {
  * Socket IO connection, use app.io instead of just "io"
 **/
 app.io.on('connection', function (socket) {
+  console.log('a user connected');
+  
   socket.emit('news', { hello: 'world' });
   
+  // Server listens to the client, getting the messages sent
+  // from client, and log to the console
   socket.on('new message', function(msg){
     console.log('new message: ' + msg);
+    
+    // send back chat message and trigger chat message action
     app.io.emit('chat message', msg);
   });
   
   socket.on('disconnect', function() {
       console.log('Got disconnect!');
   });
-  console.log('a user connected');
 });
 
 module.exports = app;
