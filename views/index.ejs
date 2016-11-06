@@ -1,40 +1,4 @@
-<!DOCTYPE html>
-<html>
-  <head>
-    <title><%= title %></title>
-    <link rel='stylesheet' href='/stylesheets/style.css' />
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.1.1/jquery.min.js"></script>
-    <script src="/ace-builds/src-noconflict/ace.js" type="text/javascript" charset="utf-8"></script>
-
-    <script src="/socket.io/socket.io.js"></script>
-    <script>
-      var socket = io.connect();
-      
-      // Function call on send button click
-      function sendFunction() {
-        // Send a "new message" with value of the new-message
-        // field to the server
-        socket.emit('new message', $('#new-message').val());
-        
-        // After sending the message to server, clear the 
-        // input field
-        $('#new-message').val('');
-      }
-      
-      // Get chat message action from server
-      // append new message at the end of the site
-      socket.on('chat message', function(msg){
-        $('#messages-area').append($('<li>').text(msg));
-      });
-      
-      // Testing on socket emit
-      socket.on('news', function (data) {
-        console.log(data);
-        $('#socket').html(data["hello"]);
-      });
-    </script>
-  </head>
-  <body>
+<% include ./partials/head %>
     <h1><%= title %></h1>
     <p>Welcome to <%= title %></p>
     <h3 id="socket"></h3>
@@ -50,11 +14,4 @@
         return x;
       }
     </div>
-    
-    <script>
-        var editor = ace.edit("editor");
-        editor.setTheme("ace/theme/monokai");
-        editor.getSession().setMode("ace/mode/javascript");
-    </script>
-  </body>
-</html>
+<% include ./partials/footer %>
