@@ -4,6 +4,10 @@ var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
+var redis = require('redis'), 
+    subscriber = redis.createClient(),
+    publisher = redis.createClient();
+var msg_count = 0;
 
 var index = require('./routes/index');
 var users = require('./routes/users');
@@ -13,6 +17,9 @@ var app = express();
 
 // Include Ejs helpers
 var helpers = require('express-helpers')(app);
+
+/* Setup Redis*/ 
+
 
 /* Set up Socket IO*/
 app.io = require('socket.io')();
@@ -73,5 +80,28 @@ app.io.on('connection', function (socket) {
       console.log('Got disconnect!');
   });
 });
+
+
+/*
+ * Redis Pub/Sub connection
+*/
+subscriber.on("subscribe", function (channel, count) {
+    publisher.publish("a nice channel", "I am sending a message.");
+    publisher.publish("a nice channel", "I am sending a second message.");
+    publisher.publish("a nice channel", "I am sending my last message.");
+});
+
+subscriber.on("message", function (channel, message) {
+    console.log("sub channel " + channel + ": " + message);
+    msg_count += 1;
+    if (msg_count === 3) {
+        subscriber.unsubscribe();
+        subscriber.quit();
+        publisher.quit();
+    }
+});
+
+subscriber.subscribe("a nice channel");
+
 
 module.exports = app;
