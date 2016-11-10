@@ -7,12 +7,10 @@ var addEditor = function( num ){
   editor.setShowPrintMargin(false);
 }
 
-
-
 $('#add-editor').click(function(){
   console.log('Add editor is working!');
   var editorCount = $('.ace-editor').children().length;
   var nextId = editorCount + 1;
-  $('.ace-editor').append("<div id= editor-'"+ nextId + "'></div>");
+  $('.editor-container').append("<div class='ace-editor' id= 'editor-"+ nextId + "'></div>");
   addEditor(nextId);
 });

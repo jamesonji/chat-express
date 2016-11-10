@@ -9,8 +9,9 @@ a {
 
 .ace-editor { 
     position: relative;;
-    width: 80%;
-    height: 300px;
+    width: 60%;
+    height: 100px;
+    border-radius: 10px;
 }
 
 nav {
