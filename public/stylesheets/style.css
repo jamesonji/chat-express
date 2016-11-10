@@ -1,5 +1,5 @@
 body {
-  padding: 50px;
+  margin: 0;
   font: 14px "Lucida Grande", Helvetica, Arial, sans-serif;
 }
 
@@ -7,8 +7,41 @@ a {
   color: #00B7FF;
 }
 
-#editor { 
+.ace-editor { 
     position: relative;;
-    width: 100%;
+    width: 80%;
     height: 300px;
+}
+
+nav {
+    list-style-type: none;
+    margin: 0;
+    padding: 0;
+    width: 20%;
+    background-color: white;
+    position: fixed;
+    height: 100%;
+    overflow: auto;
+}
+
+nav a {
+    display: block;
+    color: #000;
+    padding: 8px 16px;
+    text-decoration: none;
+}
+
+nav a.active {
+    background-color: #4CAF50;
+    color: white;
+}
+
+nav a:hover:not(.active) {
+    background-color: #555;
+    color: white;
+}
+
+.main-body{
+  margin-left: 24%;
+  padding-left: 1em;
 }
