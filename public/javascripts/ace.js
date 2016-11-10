@@ -26,3 +26,7 @@ $('#add-editor').click(function(){
   $('.editor-container').append("<div class='ace-editor' id= 'editor-"+ EDITORCOUNT + "'></div>");
   addEditor(EDITORCOUNT);
 });
+
+$(function(){
+  
+})
